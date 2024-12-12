@@ -16,21 +16,8 @@ private enum ID {
 }
 
 public extension UIImageView {
-    private static var xoAssociationKey: UInt8 = 0
-    
-    private var id: Int {
-        get {
-            return objc_getAssociatedObject(self, &Self.xoAssociationKey) as? Int ?? 0
-        }
-        
-        set(newValue) {
-            objc_setAssociatedObject(
-                self,
-                &Self.xoAssociationKey,
-                newValue,
-                objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN
-            )
-        }
+    func test() {
+        print("from package")
     }
     
     func setImage(url: String) {
@@ -56,6 +43,25 @@ public extension UIImageView {
             case .failure:
                 break
             }
+        }
+    }
+}
+
+private extension UIImageView {
+    private static var xoAssociationKey: UInt8 = 0
+    
+    private var id: Int {
+        get {
+            return objc_getAssociatedObject(self, &Self.xoAssociationKey) as? Int ?? 0
+        }
+        
+        set(newValue) {
+            objc_setAssociatedObject(
+                self,
+                &Self.xoAssociationKey,
+                newValue,
+                objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN
+            )
         }
     }
 }
