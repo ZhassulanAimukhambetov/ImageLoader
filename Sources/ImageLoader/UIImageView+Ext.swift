@@ -16,6 +16,11 @@ private enum ID {
 }
 
 public extension UIImageView {
+    func test2() {
+        
+        
+    }
+    
     func test() {
         print("from package")
     }
