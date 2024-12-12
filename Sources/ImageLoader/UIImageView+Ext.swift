@@ -5,6 +5,7 @@
 //  Created by CodeReview on 12/12/24.
 //
 import UIKit
+import Kingfisher
 
 private enum ID {
     private static var value: Int = 0
@@ -25,12 +26,18 @@ public extension UIImageView {
         print("from package")
     }
     
+    func setImageKF(url: String) {
+        kf.setImage(with: URL(string: url))
+    }
+    
     func setImage(url: String) {
         if let image = StockImageCache.object(for: url) {
             self.image = image
             
             return
         }
+        
+        
         
         let id = ID.next()
         self.id = id
