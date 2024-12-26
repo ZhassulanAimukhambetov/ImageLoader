@@ -31,29 +31,20 @@ public extension UIImageView {
     }
     
     func setImage(url: String) {
-        if let image = StockImageCache.object(for: url) {
-            self.image = image
-            
-            return
-        }
-        
-        
-        
+        image = nil
         let id = ID.next()
         self.id = id
         
         StockImageLoader.fetchImage(urlString: url) { [weak self] result in
-            switch result {
-            case .success(let image):
-                StockImageCache.add(object: image, for: url)
-                
-                if self?.id == id {
-                    DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let image):
+                    if self?.id == id {
                         self?.image = image
                     }
+                case .failure:
+                    break
                 }
-            case .failure:
-                break
             }
         }
     }
